@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class Test3 implements Environment.Dev {
 
     protected MainProduct mainProduct;
-    protected SecondProduct product;
+    protected SecondProduct product = new SecondProduct();
 
     protected void createMainProduct() {
         mainProduct = MainProduct.builder()

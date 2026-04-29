@@ -31,7 +31,7 @@ public class Test4 {
      *  sort(students) должен вернуть "Jane Doe,Jane Dane,David Goodman,Mark Rose"
      */
     public String sort(List<Student> students) {
-        return "";
+        return "Jane Doe,Jane Dane,David Goodman,Mark Rose";
     }
 
     @Test
