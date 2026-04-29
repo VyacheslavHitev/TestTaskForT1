@@ -5,7 +5,9 @@ import lombok.Getter;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -31,7 +33,12 @@ public class Test4 {
      *  sort(students) должен вернуть "Jane Doe,Jane Dane,David Goodman,Mark Rose"
      */
     public String sort(List<Student> students) {
-        return "Jane Doe,Jane Dane,David Goodman,Mark Rose";
+        return students.stream()
+                .sorted(Comparator.comparingInt(Student::getRank).reversed()
+                        .thenComparing((s) -> s.getFullName().split(" ")[1].charAt(0))
+                        .thenComparingInt(Student::getAge))
+                .map(Student::getFullName)
+                .collect(Collectors.joining(","));
     }
 
     @Test
