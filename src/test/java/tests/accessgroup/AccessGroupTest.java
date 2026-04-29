@@ -4,6 +4,7 @@ import com.mifmif.common.regex.Generex;
 import core.helper.StepLoggerExtension;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import models.Environment;
 import models.entities.AccessGroup;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,12 +18,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Epic("Управление")
 @Feature("Группы доступа")
 @Tag("smoke")
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(StepLoggerExtension.class)
-public class AccessGroupTest {
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class AccessGroupTest implements Environment.TestEnv {
 
     private static final String GROUP_NAME = "AT-GROUP";
-    private static final String PROJECT_NAME = "proj-test";
+    private final String PROJECT_NAME = getProjectName();
 
     private AccessGroup.AccessGroupBuilder buildAccessGroup() {
         return AccessGroup.builder().name(GROUP_NAME)
@@ -51,7 +52,7 @@ public class AccessGroupTest {
     }
 
     @AfterAll
-    public static void tearDown() {
+    public void tearDown() {
         deleteAccessGroupByName(PROJECT_NAME, GROUP_NAME);
     }
 
